@@ -1,8 +1,9 @@
 const express = require('express');
-const { sayHello } = require('./controllers/hello');
+const { redirect, loginOrSignup } = require('./controllers/users');
 
 const router = express();
 
-router.get('/', sayHello);
+router.post('/login', redirect);
+router.get('/google-auth', loginOrSignup);
 
 module.exports = router;
