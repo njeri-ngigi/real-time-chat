@@ -1,4 +1,5 @@
 const express = require('express');
+const io = require('socket.io');
 const ENV = require('./environment');
 const router = require('./routes');
 const connectDb = require('./models/database');
@@ -12,7 +13,14 @@ app.use('/api/v1', router);
 
 connectDb();
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`App running on port ${PORT}`);
+});
+
+const ioConnection = io(server);
+
+ioConnection.on('connection', (socket) => {
+  // eslint-disable-next-line no-console
+  console.log('New user connected');
 });
