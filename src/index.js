@@ -22,5 +22,6 @@ const ioConnection = io(server);
 
 ioConnection.on('connection', (socket) => {
   // eslint-disable-next-line no-console
+  // TODO: connect from the client side
   console.log('New user connected');
 });
