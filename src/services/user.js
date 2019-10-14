@@ -14,8 +14,7 @@ const createUser = async (email) => {
   try {
     let foundUser = await findUser(email);
     if (!foundUser) {
-      foundUser = new UserModel({ email });
-      await foundUser.save();
+      foundUser = await UserModel.create({ email });
     }
     return foundUser;
   } catch (error) {
@@ -25,10 +24,9 @@ const createUser = async (email) => {
   }
 };
 
-const deleteUser = async (email) => {
+const fetchAllUsers = async () => {
   try {
-    await UserModel.findOneAndDelete({ email });
-    return true;
+    return UserModel.find();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -36,6 +34,7 @@ const deleteUser = async (email) => {
   }
 };
 
+
 module.exports = {
-  createUser, findUser, deleteUser,
+  createUser, findUser, fetchAllUsers,
 };
