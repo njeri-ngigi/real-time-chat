@@ -1,13 +1,22 @@
 const mongoose = require('mongoose');
+const EmailValidator = require('email-validator');
+
+const contactSchema = {
+  type: String,
+  required: true,
+  validate: (value) => EmailValidator.validate(value),
+};
 
 const messageSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
   },
-  sent: Boolean,
-  received: Boolean,
-  forwarded: Boolean,
+  sender: contactSchema,
+  receiver: contactSchema,
+  createdAt: { type: Date, default: Date.now },
 });
 
-module.exports = messageSchema;
+const MessageModel = mongoose.model('Message', messageSchema);
+
+module.exports = { MessageModel };
