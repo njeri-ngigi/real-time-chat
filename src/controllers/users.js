@@ -1,4 +1,5 @@
-const { urlGoogle, getGoogleAccountFromCode } = require('../utils/google-util');
+const { createAppToken } = require('../utils/jwt');
+const { urlGoogle } = require('../utils/google-util');
 const { createUser } = require('../services/user');
 
 const redirect = (req, res) => {
@@ -6,12 +7,15 @@ const redirect = (req, res) => {
 };
 
 const loginOrSignup = async (req, res) => {
+  const errorResponse = () => res.status(500).send({ message: 'Something went wrong. Try again.' });
   const { code } = req.query;
-  const { email, tokens } = await getGoogleAccountFromCode(code);
-  const { id_token: token } = tokens;
+  const { email, token } = await createAppToken(code);
+
+  if (!email || !token) return errorResponse();
+
   const userInserted = await createUser(email);
 
-  if (!userInserted) return res.status(500).send({ message: 'Something went wrong. Try again.' });
+  if (!userInserted) return errorResponse();
 
   return res.send({
     message: 'welcome to real time chat',

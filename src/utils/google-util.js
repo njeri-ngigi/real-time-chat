@@ -38,13 +38,28 @@ const getGoogleAccountFromCode = async (code) => {
   auth.setCredentials(tokens);
   const plus = getGooglePlusApi(auth);
   const me = await plus.people.get({ userId: 'me' });
-  const { id: userGoogleId } = me.data;
+  const { url } = me.data.image;
   const userGoogleEmail = me.data.emails && me.data.emails.length && me.data.emails[0].value;
   return {
-    id: userGoogleId,
     email: userGoogleEmail,
+    profilePhotoUrl: url,
     tokens,
   };
 };
 
-module.exports = { urlGoogle, getGoogleAccountFromCode };
+// eslint-disable-next-line consistent-return
+const verifyGoogleToken = async (idToken) => {
+  try {
+    const client = createConnection();
+    await client.verifyIdToken({
+      idToken,
+      audience: GoogleClientID,
+    });
+    return true;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(error);
+  }
+};
+
+module.exports = { urlGoogle, getGoogleAccountFromCode, verifyGoogleToken };

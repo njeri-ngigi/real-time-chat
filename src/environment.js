@@ -7,8 +7,9 @@ const {
   GoogleClientID = '',
   GoogleClientSecret = '',
   mongodbUrl = '',
+  AppSecret,
 } = process.env;
 
 module.exports = {
-  PORT, GoogleClientID, GoogleClientSecret, mongodbUrl,
+  PORT, GoogleClientID, GoogleClientSecret, mongodbUrl, AppSecret,
 };
