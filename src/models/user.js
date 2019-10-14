@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const EmailValidator = require('email-validator');
-const contactSchema = require('./contact');
+const contactSchema = require('./schemas/contact');
 
 const userSchema = new mongoose.Schema({
   email: {

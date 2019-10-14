@@ -9,7 +9,7 @@ const redirect = (req, res) => {
 const loginOrSignup = async (req, res) => {
   const errorResponse = () => res.status(500).send({ message: 'Something went wrong. Try again.' });
   const { code } = req.query;
-  const { email, token } = await createAppToken(code);
+  const { email, token, profilePhotoUrl } = await createAppToken(code);
 
   if (!email || !token) return errorResponse();
 
@@ -19,7 +19,7 @@ const loginOrSignup = async (req, res) => {
 
   return res.send({
     message: 'welcome to real time chat',
-    data: { email, token },
+    data: { email, token, profilePhotoUrl },
   });
 };
 
