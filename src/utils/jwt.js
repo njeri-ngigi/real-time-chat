@@ -11,7 +11,7 @@ const validateGoogleTokenAndReturnAppToken = async (code) => {
     const { email, profilePhotoUrl, tokens } = await getGoogleAccountFromCode(code);
     const isTokenValid = await verifyGoogleToken(tokens.id_token);
     if (isTokenValid) token = createJwtToken({ email, profilePhotoUrl });
-    return { email, token };
+    return { email, token, profilePhotoUrl };
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
