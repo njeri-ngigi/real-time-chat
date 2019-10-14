@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const EmailValidator = require('email-validator');
+const contactSchema = require('./contact');
 
 const userSchema = new mongoose.Schema({
   email: {
@@ -7,16 +8,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     validate: (value) => EmailValidator.validate(value),
-    createdAt: Date,
-    updatedAt: Date,
   },
+  contacts: [contactSchema],
 });
 
-userSchema.pre('save', (next) => {
-  const now = Date.now();
-  this.updatedAt = now;
-  if (!this.createdAt) this.createdAt = now;
-  next();
-});
+const UserModel = mongoose.model('User', userSchema);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = { UserModel };
