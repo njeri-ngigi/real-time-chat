@@ -43,7 +43,9 @@ const fetchContacts = async (email) => {
 // eslint-disable-next-line consistent-return
 const fetchContactMessages = (sender, receiver) => {
   try {
-    return MessageModel.find({ sender, receiver });
+    return MessageModel.find({
+      $or: [{ sender, receiver }, { sender: receiver, receiver: sender }],
+    });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
