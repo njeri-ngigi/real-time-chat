@@ -8,7 +8,7 @@ const sendMessage = async (req, res) => {
 
   if (!response) return res.status(500).send({ message: 'Something went wrong. Try again.' });
 
-  return res.status(201).send({ message: 'Message sent successfully!' });
+  return res.status(201).send({ data: response });
 };
 
 const getUserContacts = async (req, res) => {
