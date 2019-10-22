@@ -4,6 +4,7 @@ dotenv.config();
 
 const {
   PORT = 3000,
+  ORIGIN_URL = '',
   GoogleClientID = '',
   GoogleClientSecret = '',
   mongodbUrl = '',
@@ -11,5 +12,5 @@ const {
 } = process.env;
 
 module.exports = {
-  PORT, GoogleClientID, GoogleClientSecret, mongodbUrl, AppSecret,
+  PORT, ORIGIN_URL, GoogleClientID, GoogleClientSecret, mongodbUrl, AppSecret,
 };
