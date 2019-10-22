@@ -12,7 +12,7 @@ router.post('/login', redirect);
 router.get('/google-auth', loginOrSignup);
 router.post('/send', validateAuthentication, validateContact, validateMessage, sendMessage);
 router.get('/user/contacts', validateAuthentication, getUserContacts);
-router.get('/user/contacts/messages', validateAuthentication, validateContact, getContactMessages);
+router.post('/user/contacts/messages', validateAuthentication, validateContact, getContactMessages);
 router.get('/contacts', validateAuthentication, getAllContacts);
 
 module.exports = router;

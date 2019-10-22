@@ -20,11 +20,9 @@ const sendMessage = async ({ sender, receiver, message }) => {
     const userReceiver = await findUser(receiver);
 
     findOrCreateContact(userSender, receiver);
-    findOrCreateContact(userReceiver, sender);
+    if (sender !== receiver) { findOrCreateContact(userReceiver, sender); }
 
-    await createMessage({ message, sender, receiver });
-
-    return true;
+    return createMessage({ message, sender, receiver });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);
@@ -35,7 +33,7 @@ const sendMessage = async ({ sender, receiver, message }) => {
 const fetchContacts = async (email) => {
   try {
     const user = await findUser(email);
-    return user.contacts;
+    return user.contacts || [];
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(error);

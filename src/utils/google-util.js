@@ -4,7 +4,7 @@ const { GoogleClientID, GoogleClientSecret } = require('../environment');
 const googleConfig = {
   clientId: GoogleClientID,
   clientSecret: GoogleClientSecret,
-  redirect: 'http://localhost:3000/api/v1/google-auth',
+  redirect: 'http://localhost:3000/redirect/',
 };
 
 const defaultScope = [
